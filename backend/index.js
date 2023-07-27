@@ -12,5 +12,5 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/note", require("./routes/note"));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Notebook backend listening on port ${port}`);
 });
