@@ -1,6 +1,6 @@
 const ConnectToMOngo = require("./db");
 const express = require("express");
-//var cors = require("cors");
+var cors = require("cors");
 
 ConnectToMOngo();
 

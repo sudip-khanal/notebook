@@ -5,10 +5,11 @@ import Addnote from "./Addnote";
 
 const Notes = () => {
   const context = useContext(NoteContext);
-  const { notes, getNotes } = context;
+  const { notes, addNote, getNotes } = context;
   useEffect(() => {
     getNotes();
-  }, [getNotes]);
+  }, []);
+
   const ref = useRef(null);
   const [note, setNote] = useState({
     etitle: "",
@@ -26,6 +27,7 @@ const Notes = () => {
 
   const handlesubmitClick = (e) => {
     e.preventDefault();
+    //addNote(note);
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -36,7 +38,7 @@ const Notes = () => {
       <button
         type="button"
         ref={ref}
-        class="btn btn-primary d-none"
+        className="btn btn-primary d-none"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
@@ -44,6 +46,7 @@ const Notes = () => {
       </button>
 
       <div
+        key="exampleModal" // Add a unique key here
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -66,7 +69,7 @@ const Notes = () => {
             <div className="modal-body">
               <form>
                 <div className="mb-3">
-                  <label htmlfor="title" className="form-label">
+                  <label htmlFor="title" className="form-label">
                     Title
                   </label>
                   <input
@@ -79,7 +82,7 @@ const Notes = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlfor="description" className="form-label">
+                  <label htmlFor="description" className="form-label">
                     Description
                   </label>
                   <input
@@ -92,7 +95,7 @@ const Notes = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlfor="tag" className="form-label">
+                  <label htmlFor="tag" className="form-label">
                     Tag
                   </label>
                   <input
@@ -128,11 +131,14 @@ const Notes = () => {
 
       <div className="row my-3">
         <h2>Your Note</h2>
-        {notes.map((note) => {
-          return (
+        {/* Conditionally render NoteItems when notes are available */}
+        {notes?.length ? (
+          notes.map((note) => (
             <NoteItems key={note._id} note={note} updateNote={updateNote} />
-          );
-        })}
+          ))
+        ) : (
+          <p>No notes found.</p>
+        )}
       </div>
     </>
   );

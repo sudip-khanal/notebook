@@ -46,7 +46,6 @@ router.post(
 );
 
 //Route3: update   notes using: post "/api/note/updatenote".login required
-
 router.put("/updatnote/:id", fetchuser, async (req, res) => {
   const { title, description, tag } = req.body;
   //create new note object
@@ -86,7 +85,7 @@ router.put("/updatnote/:id", fetchuser, async (req, res) => {
 
 //Route4: delet notes using: delet "/api/note/deletnote".login required
 
-router.put("/deletnote/:id", fetchuser, async (req, res) => {
+router.delete("/deletnote/:id", fetchuser, async (req, res) => {
   // Find note to be delete and delete it
 
   try {

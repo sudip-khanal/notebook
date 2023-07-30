@@ -3,9 +3,9 @@ import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
   const host = "http://localhost:5000";
-  const noteInitial = [];
+  const notesInitial = [];
 
-  const [notes, setNotes] = useState(noteInitial);
+  const [notes, setNotes] = useState([notesInitial]);
 
   //get all note
   const getNotes = async () => {
@@ -21,7 +21,7 @@ const NoteState = (props) => {
     });
     const json = await response.json();
     console.log(json);
-    setNotes();
+    setNotes(json);
   };
 
   // Add a note
@@ -37,8 +37,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
-    console.log(json);
+
     const note = {
       _id: "64c0a66a477712c65fe6f6e49865",
       user: "64bbdc2d9652a9e22e594279",
