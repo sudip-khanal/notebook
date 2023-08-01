@@ -5,13 +5,16 @@ import Addnote from "./Addnote";
 
 const Notes = () => {
   const context = useContext(NoteContext);
-  const { notes, addNote, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
+    // eslint-disable-next-line
   }, []);
 
   const ref = useRef(null);
+  const refclose = useRef(null);
   const [note, setNote] = useState({
+    id: "",
     etitle: "",
     edescription: "",
     etag: "",
@@ -19,15 +22,16 @@ const Notes = () => {
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({
+      id: currentNote._id,
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
   };
 
-  const handlesubmitClick = (e) => {
-    e.preventDefault();
-    //addNote(note);
+  const handleClick = (e) => {
+    refclose.current.click();
+    editNote(note.id, note.etitle, note.edescription, note.etag);
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -36,17 +40,14 @@ const Notes = () => {
     <>
       <Addnote />
       <button
-        type="button"
         ref={ref}
+        type="button"
         className="btn btn-primary d-none"
         data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        Launch static backdrop modal
-      </button>
+        data-bs-target="#exampleModal"
+      ></button>
 
       <div
-        key="exampleModal" // Add a unique key here
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -78,6 +79,8 @@ const Notes = () => {
                     id="etitle"
                     value={note.etitle}
                     name="etitle"
+                    minLength={5}
+                    required
                     onChange={onChange}
                   />
                 </div>
@@ -90,6 +93,8 @@ const Notes = () => {
                     className="form-control"
                     id="edescription"
                     name="edescription"
+                    minLength={5}
+                    required
                     value={note.edescription}
                     onChange={onChange}
                   />
@@ -111,6 +116,7 @@ const Notes = () => {
             </div>
             <div className="modal-footer">
               <button
+                ref={refclose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
@@ -118,9 +124,12 @@ const Notes = () => {
                 Close
               </button>
               <button
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
                 type="button"
                 className="btn btn-primary"
-                onClick={handlesubmitClick}
+                onClick={handleClick}
               >
                 Update Note
               </button>
