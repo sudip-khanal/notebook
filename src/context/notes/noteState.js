@@ -14,11 +14,12 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRiZGY5YTg3ZDY4MWEwZGE0ODUxOThjIn0sImlhdCI6MTY5MDE3Mjk3OX0.rYIPMXUSUyDLb4zrRZ8CBdpaKYPkDwMxQz1upr1lxtM",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        "auth-token": localStorage.getItem("token"),
       },
     });
+    // if (!response.ok) {
+    //   throw new Error("Failed to fetch notes");
+    // }
     const json = await response.json();
     //console.log(json);
     setNotes(json);
@@ -31,14 +32,12 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRiZGY5YTg3ZDY4MWEwZGE0ODUxOThjIn0sImlhdCI6MTY5MDE3Mjk3OX0.rYIPMXUSUyDLb4zrRZ8CBdpaKYPkDwMxQz1upr1lxtM",
+        "auth-token": localStorage.getItem("token"),
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({ title, description, tag }),
     });
     const note = await response.json();
-
     setNotes(notes.concat(note));
   };
 
@@ -49,8 +48,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRiZGY5YTg3ZDY4MWEwZGE0ODUxOThjIn0sImlhdCI6MTY5MDE3Mjk3OX0.rYIPMXUSUyDLb4zrRZ8CBdpaKYPkDwMxQz1upr1lxtM",
+        "auth-token": localStorage.getItem("token"),
       },
     });
     const json = response.json();
@@ -70,9 +68,7 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRiZGY5YTg3ZDY4MWEwZGE0ODUxOThjIn0sImlhdCI6MTY5MDE3Mjk3OX0.rYIPMXUSUyDLb4zrRZ8CBdpaKYPkDwMxQz1upr1lxtM",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ title, description, tag }),
     });

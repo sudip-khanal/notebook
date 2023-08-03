@@ -2,12 +2,18 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import NoteContext from "../context/notes/NoteContext";
 import NoteItems from "./NoteItems";
 import Addnote from "./Addnote";
+import { useNavigate } from "react-router-dom";
 
-const Notes = () => {
+const Notes = (props) => {
   const context = useContext(NoteContext);
+  let navigator = useNavigate();
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
-    getNotes();
+    if (localStorage.getItem("token")) {
+      getNotes();
+    } else {
+      navigator("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -32,13 +38,14 @@ const Notes = () => {
   const handleClick = (e) => {
     refclose.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
+    props.showAlert("updated successfully", "success");
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
   return (
     <>
-      <Addnote />
+      <Addnote showAlert={props.showAlert} />
       <button
         ref={ref}
         type="button"
@@ -143,7 +150,12 @@ const Notes = () => {
         {/* Conditionally render NoteItems when notes are available */}
         {notes?.length ? (
           notes.map((note) => (
-            <NoteItems key={note._id} note={note} updateNote={updateNote} />
+            <NoteItems
+              key={note._id}
+              note={note}
+              showAlert={props.showAlert}
+              updateNote={updateNote}
+            />
           ))
         ) : (
           <p>No notes found.</p>

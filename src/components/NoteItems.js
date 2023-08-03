@@ -16,6 +16,10 @@ const NoteItems = (props) => {
               className="fa-solid fa-trash-can mx-2"
               onClick={() => {
                 deleteNote(note._id);
+                // eslint-disable-next-line
+                {
+                  props.showAlert("deleted Successfully", "danger");
+                }
               }}
             ></i>
             <i
