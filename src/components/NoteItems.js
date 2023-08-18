@@ -17,9 +17,9 @@ const NoteItems = (props) => {
               onClick={() => {
                 deleteNote(note._id);
                 // eslint-disable-next-line
-                {
-                  props.showAlert("deleted Successfully", "danger");
-                }
+                // {
+                //   props.showAlert("deleted Successfully", "danger");
+                // }
               }}
             ></i>
             <i

@@ -18,10 +18,10 @@ const Login = (props) => {
       }),
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     if (json.success) {
       // save the auth token and redirect to homepage
-      localStorage.setItem("token", json.authtoken);
+      localStorage.setItem("token", json.authToken);
       props.showAlert("Login Successfully", "success"); // Call showAlert function from the parent
       navigator("/");
     } else {

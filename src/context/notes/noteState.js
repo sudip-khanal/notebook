@@ -33,11 +33,11 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const note = await response.json();
+
+    const note = await response.json(); // Note the 'await' keyword here
     setNotes(notes.concat(note));
   };
 
@@ -51,7 +51,8 @@ const NoteState = (props) => {
         "auth-token": localStorage.getItem("token"),
       },
     });
-    const json = response.json();
+
+    const json = await response.json(); // Add 'await' keyword here
     console.log(json);
 
     console.log("deleting note with id" + id);

@@ -147,13 +147,11 @@ const Notes = (props) => {
 
       <div className="row my-3">
         <h2>Your Note</h2>
-        {/* Conditionally render NoteItems when notes are available */}
         {notes?.length ? (
           notes.map((note) => (
             <NoteItems
-              key={note._id}
+              key={note._id} // Add a unique key prop using note._id or another unique identifier from your data
               note={note}
-              showAlert={props.showAlert}
               updateNote={updateNote}
             />
           ))
